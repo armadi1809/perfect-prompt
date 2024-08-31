@@ -1,0 +1,48 @@
+#root {
+  max-width: 1280px;
+  margin: 0;
+  padding: 2rem;
+}
+
+#transcript,
+#script {
+  border: 1px solid #ccc;
+  padding: 10px;
+  min-height: 100px;
+  width: 100%;
+}
+
+#controls,
+#record-controls {
+  margin: 10px 0px 10px 0px;
+  display: flex;
+  gap: 5px;
+}
+
+.stepController {
+  display: flex;
+  justify-content: flex-end;
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
