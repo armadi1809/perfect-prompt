@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
 
 export default function WpmTraker() {
@@ -10,6 +11,14 @@ export default function WpmTraker() {
   } = useSpeechRecognition({
     language: "en-US",
   });
+  const [recordingStartTime, setRecordingStartTime] = useState<
+    number | undefined
+  >(undefined);
+  const wpm = recordingStartTime
+    ? Math.floor(
+        transcript.length / ((Date.now() - recordingStartTime) / 60000)
+      )
+    : 0;
   return (
     <>
       <div>Tracking your WPM</div>
@@ -23,7 +32,7 @@ export default function WpmTraker() {
         </select>
       </div>
       <div>
-        <label htmlFor="wpm">Words per minute: </label>
+        <label htmlFor="wpm">Words per minute: {wpm.toString()}</label>
         <p id="wpm"></p>
       </div>
       <div id="transcript">
@@ -37,10 +46,23 @@ export default function WpmTraker() {
       </div>
 
       <div id="controls">
-        <button id="start-btn" disabled={isListening} onClick={startListening}>
+        <button
+          id="start-btn"
+          disabled={isListening}
+          onClick={() => {
+            setRecordingStartTime(Date.now());
+            startListening();
+          }}
+        >
           Start Listening
         </button>
-        <button id="stop-btn" disabled={!isListening} onClick={stopListening}>
+        <button
+          id="stop-btn"
+          disabled={!isListening}
+          onClick={() => {
+            stopListening();
+          }}
+        >
           Stop Listening
         </button>
       </div>
